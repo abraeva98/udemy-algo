@@ -1,0 +1,13 @@
+function insertMaxHeap(array, value) {
+  array.push(value);
+  let valueIdx = array.length - 1;
+  let parentIdx = Math.floor((valueIdx - 1) / 2);
+  while(array[valueIdx] > array[parentIdx]) {
+    let temp = array[parentIdx];
+    array[parentIdx] = array[valueIdx];
+    array[valueIdx] = temp;
+    valueIdx = parentIdx;
+    parentIdx = Math.floor((valueIdx - 1) / 2);
+  }
+  return array;
+}
