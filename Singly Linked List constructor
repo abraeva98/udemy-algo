@@ -70,4 +70,10 @@ class SinglyLinkedList {
     }
     return node;
   }
+  set(index, val) {
+    let nodeAtIdx = this.get(index);
+    if (!nodeAtIdx) return false;
+    nodeAtIdx.val = val;
+    return true;
+  }
 }
