@@ -40,7 +40,7 @@ class SinglyLinkedList {
     }
     return current;
   }
-    shift() {
+  shift() {
     if (this.head === null) return undefined;
     let currHead = this.head;
     this.head = currHead.next;
