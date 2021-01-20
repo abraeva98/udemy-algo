@@ -1,0 +1,68 @@
+class Node {
+  constructor(val, priority) {
+    this.val = val;
+    this.priority = priority;
+  }
+}
+
+class PriorityQueue {
+  constructor() {
+    this.values = [];
+  }
+  enqueue(val, priority) {
+    let element = new Node(val, priority)
+    this.values.push(element);
+    this.bubleUp();
+  }
+  bubbleUp() {
+    let idx = this.values.length - 1;
+    const element = this.values[idx];
+    while (idx > 0) {
+      let parentIdx = Math.floor((idx - 1) / 2);
+      if (element.priority > this.values[parentIdx].priority) {
+        let temp = this.values[parentIdx];
+        this.values[parentIdx] = element;
+        element = temp;
+        idx = parentIdx;
+      } else {
+        break;
+      }
+    }
+  }
+  dequeue() {
+    const max = this.values[0];
+    const end = this.values.pop();
+    if (this.values.length > 0) {
+      this.values[0] = end;
+      this.sinkDown();
+    }
+    return max;
+  }
+  sinkDown() {
+    let idx = 0;
+    let leftChildIdx = idx * 2 + 1;
+    while (leftChildIdx > this.values.length) {
+      let rightChildIdx = idx * 2 + 2;
+      let rightChild;
+      if (rightChildIdx < this.values.length - 1) {
+        rightChild = -1;
+      } else {
+        rightChild = this.values[rightChildIdx];
+      }
+      let idxToSwap;
+      if (rightChild !== -1 && rightChild.priority < this.values[leftChildIdx].priority) {
+        idxToSwap = rightChildIdx;
+      } else {
+        idxToSwap = leftChildIdx;
+      }
+      if (this.values[idx].priority > this.values[idxToSwap].priority) {
+        let temp = this.values[idx];
+        this.values[idx] = this.values[idxToSwap];
+        this.values[idxToSwap] = temp;
+        leftChildIdx = idxToSwap * 2 + 1;
+      } else {
+        return;
+      }
+    }
+  }
+}
